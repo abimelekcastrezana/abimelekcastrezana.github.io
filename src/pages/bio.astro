@@ -1,0 +1,56 @@
+---
+import Navigation from '../components/Navigation.astro';
+import '../styles/global.css';
+
+const pageTitle = "Bio";
+const identity = {
+  name: "Abimelek Castrezana",
+  country: "Guanajuato, México",
+  occupation: "Desarrollador de Software Mid Full-Stack",
+};
+
+const skills = ["Fullstack", "Javascript", "Typescript", "Express JS", "Nextjs", "React", "Astro", "Writing Docs", "Docker", "SQL", "CI&CD"];
+const softSkills = ["Amabilidad", "Liderazgo", "Ingles B2", "Italiano A2", "Creatividad", "Escucha"]
+
+const skillColor = "crimson";
+const textCase = ""
+---
+
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{pageTitle}</title>
+		<style define:vars={{skillColor}}>
+			h1 {
+				color: purple;
+				font-size: 4rem;
+			}
+			.skill {
+				color: var(--skillColor);
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+       <Navigation />
+		<h1>{pageTitle}</h1>
+
+  <p>Soy {identity.name} un {identity.occupation} de software con 5 + años de experiencia fullstack.</p>
+
+  <p>Me gusta aprender cosas nuevas técnicas y escribir, crear proyectos, leer, adoro estar con mi prometida y nuestras mascotitas!</p>
+
+  <p>Entre mis habilidades técnicas se encuentran:</p>
+  <ul>
+	{skills.map((skill) => <li class="skill">{skill}</li>)}
+  </ul>
+  <p>Mis habilidades blandas:</p>
+  <ul>
+	{softSkills.map((skill) => <li>{skill}</li>)}
+  </ul>
+  <a href="/Abimelek_Castrezana_CV.pdf" download>Descargar CV</a>
+	</body>
+</html>
