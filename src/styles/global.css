@@ -24,3 +24,11 @@ h1 {
 ul {
   font-size: 1rem;
 }
+
+footer {
+  position: fixed;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}

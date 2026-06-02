@@ -1,5 +1,6 @@
 ---
 import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
 const pageTitle = "Bio";
@@ -39,18 +40,19 @@ const textCase = ""
        <Navigation />
 		<h1>{pageTitle}</h1>
 
-  <p>Soy {identity.name} un {identity.occupation} de software con 5 + años de experiencia fullstack.</p>
+  		<p>Soy {identity.name} un {identity.occupation} de software con 5 + años de experiencia fullstack.</p>
 
-  <p>Me gusta aprender cosas nuevas técnicas y escribir, crear proyectos, leer, adoro estar con mi prometida y nuestras mascotitas!</p>
+  		<p>Me gusta aprender cosas nuevas técnicas y escribir, crear proyectos, leer, adoro estar con mi prometida y nuestras mascotitas!</p>
 
-  <p>Entre mis habilidades técnicas se encuentran:</p>
-  <ul>
-	{skills.map((skill) => <li class="skill">{skill}</li>)}
-  </ul>
-  <p>Mis habilidades blandas:</p>
-  <ul>
-	{softSkills.map((skill) => <li>{skill}</li>)}
-  </ul>
-  <a href="/Abimelek_Castrezana_CV.pdf" download>Descargar CV</a>
+  		<p>Entre mis habilidades técnicas se encuentran:</p>
+  		<ul>
+			{skills.map((skill) => <li class="skill">{skill}</li>)}
+  		</ul>
+  		<p>Mis habilidades blandas:</p>
+  		<ul>
+			{softSkills.map((skill) => <li>{skill}</li>)}
+  		</ul>
+  		<a href="/Abimelek_Castrezana_CV.pdf" download>Descargar CV</a>
+  		<Footer />
 	</body>
 </html>
