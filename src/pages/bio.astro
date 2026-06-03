@@ -1,5 +1,5 @@
 ---
-import Navigation from '../components/Navigation.astro';
+import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
@@ -10,7 +10,7 @@ const identity = {
   occupation: "Desarrollador de Software Mid Full-Stack",
 };
 
-const skills = ["Fullstack", "Javascript", "Typescript", "Express JS", "Nextjs", "React", "Astro", "Writing Docs", "Docker", "SQL", "CI&CD"];
+const skills = ["Fullstack", "Javascript", "Typescript", "Express JS", "Nextjs", "React", "Astro", "Writing Docs", "Docker", "SQL", "CI&CD", "Modulos de Odoo"];
 const softSkills = ["Amabilidad", "Liderazgo", "Ingles B2", "Italiano A2", "Creatividad", "Escucha"]
 
 const skillColor = "crimson";
@@ -37,10 +37,10 @@ const textCase = ""
 		</style>
 	</head>
 	<body>
-       <Navigation />
+       <Header />
 		<h1>{pageTitle}</h1>
 
-  		<p>Soy {identity.name} un {identity.occupation} de software con 5 + años de experiencia fullstack.</p>
+  		<p>Soy {identity.name} un {identity.occupation} con 5 + años de experiencia.</p>
 
   		<p>Me gusta aprender cosas nuevas técnicas y escribir, crear proyectos, leer, adoro estar con mi prometida y nuestras mascotitas!</p>
 
