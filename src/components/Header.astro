@@ -1,14 +1,34 @@
 ---
-import Navigation from './Navigation.astro';
-import Menu from './Menu.astro';
 ---
+
 <header>
-  <nav>
-    <Menu />
-    <Navigation />
-  </nav>
+  <div class="container">
+    <a href="/" class="logo">Abimelek Castrezana</a>
+    <nav>
+      <a href="/">Blog</a>
+      <a href="/cv">CV</a>
+      <button id="theme-toggle" aria-label="Cambiar modo oscuro/claro">☀</button>
+    </nav>
+  </div>
 </header>
 
 <script>
-  import '../scripts/menu.js';
+  const btn = document.getElementById("theme-toggle")!;
+  const root = document.documentElement;
+
+  function updateIcon() {
+    const isDark = root.getAttribute("data-theme") === "dark";
+    btn.textContent = isDark ? "☽" : "☀";
+    btn.setAttribute("aria-label", isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+  }
+
+  updateIcon();
+
+  btn.addEventListener("click", () => {
+    const isDark = root.getAttribute("data-theme") === "dark";
+    const next = isDark ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+    updateIcon();
+  });
 </script>

@@ -1,24 +1,24 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
-import '../styles/global.css';
-
-const pageTitle = "Inicio"
+const posts = (await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => !data.draft))
+  .sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<html lang="es">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
-	</head>
-	<body>
-		<Header />
-		<h1>{pageTitle}</h1>
-		<Footer />
-	</body>
-</html>
+<BaseLayout title="Blog — Abimelek Castrezana">
+  <p>Desarrollador Full-Stack. Escribo sobre software e investigaciones.</p>
+
+  <h2>Artículos</h2>
+
+  {posts.map((post: CollectionEntry<'blog'>) => (
+    <ArticleCard
+      title={post.data.title}
+      date={post.data.date}
+      tags={post.data.tags}
+      description={post.data.description}
+      slug={post.id}
+    />
+  ))}
+</BaseLayout>

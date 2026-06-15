@@ -1,0 +1,39 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  date: Date;
+  tags: string[];
+  description: string;
+}
+
+const { title, date, tags, description } = Astro.props;
+
+const dateFormatted = date.toLocaleDateString("es-ES", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<BaseLayout title={`${title} — Abimelek Castrezana`}>
+  <div class="breadcrumb">
+    <a href="/">← Blog</a>
+  </div>
+
+  <article>
+    <header class="article-header">
+      <h1>{title}</h1>
+      <div class="meta">
+        <time>{dateFormatted}</time>
+        <span>{tags.map(t => <span class="tag">{t}</span>)}</span>
+      </div>
+      <p><em>{description}</em></p>
+    </header>
+
+    <div class="article-content">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
