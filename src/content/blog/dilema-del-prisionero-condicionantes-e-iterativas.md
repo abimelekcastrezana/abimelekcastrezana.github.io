@@ -19,10 +19,10 @@ Las sentencias condicionantes permiten que un programa tome decisiones, es decir
 Para sustentar la parte teórica consulté bibliografía especializada en teoría de juegos, retomando la representación en forma normal del dilema del prisionero y la fundamentación del equilibrio de Nash. El dilema plantea que dos sospechosos son detenidos por separado: si ninguno confiesa, ambos reciben 1 mes de cárcel; si ambos confiesan, reciben 6 meses cada uno; y si solo uno confiesa, este queda libre mientras el otro recibe 9 meses. A partir de esta matriz de pagos también revisé la eliminación iterativa de estrategias estrictamente dominadas, y la idea de los juegos repetidos, donde el resultado de una ronda depende de lo ocurrido en las rondas anteriores.
 
 ```text
-                    J2 Callarse   J2 Confesar
-----------------------------------------------
-J1 Callarse            1, 1          9, 0
-J1 Confesar             0, 9          6, 6
+              J2 Callar   J2 Confesar
+--------------------------------------
+J1 Callar        1, 1        9, 0
+J1 Confesar       0, 9        6, 6
 
 (meses de prisión — menos es mejor)
 ```
