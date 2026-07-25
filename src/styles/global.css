@@ -39,10 +39,16 @@ body {
   flex-direction: column;
 }
 
+a {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 1.5rem;
+  width: 100%;
 }
 
 h1 {
@@ -320,4 +326,5 @@ footer .social-links {
 main {
   padding-bottom: 2rem;
   flex: 1;
+  min-width: 0;
 }
