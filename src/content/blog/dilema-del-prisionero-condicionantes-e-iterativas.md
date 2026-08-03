@@ -1,7 +1,7 @@
 ---
 title: "El dilema del prisionero con sentencias condicionantes e iterativas"
 date: 2026-07-25
-tags: ["Reporte"]
+tags: ["Tarea", R2_U1]
 description: "Cómo usé condicionantes e iterativas en Python para simular un torneo del dilema del prisionero y analizar su matriz de pagos."
 draft: false
 ---
