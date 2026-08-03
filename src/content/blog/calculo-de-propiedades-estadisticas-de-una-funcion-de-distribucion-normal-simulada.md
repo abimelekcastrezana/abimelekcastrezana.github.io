@@ -194,7 +194,7 @@ Mediana: 119.41971965200372
 
 Son tres elementos de un conjunto de datos ordenados que dividen el conjunto en partes iguales (Universo Fórmulas, 2024).
 
-En numpy hay una palabra reservada llamada percentil para calcular esto. Para que sea un cuartil, hay que dividir los datos en 4 partes iguales, deben ser los parámetros ingresados de 25, 50 y 75, para llamar a la función en la librería.
+En numpy hay una palabra reservada llamada "percentil" para calcular esto. Para que sea un cuartil, hay que dividir los datos en 4 partes iguales, deben ser los parámetros ingresados de 25, 50 y 75, para llamar a la función en la librería.
 
 ```python
 def cuartiles(datos):
