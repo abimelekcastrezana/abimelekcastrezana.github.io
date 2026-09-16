@@ -123,6 +123,31 @@ pre code {
   padding: 0;
 }
 
+pre.mermaid {
+  background: none;
+  display: flex;
+  justify-content: center;
+}
+
+pre.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.diagram-mobile {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .diagram-desktop {
+    display: none;
+  }
+
+  .diagram-mobile {
+    display: block;
+  }
+}
+
 [data-theme="dark"] code,
 [data-theme="dark"] pre {
   background: #1e1e1e;

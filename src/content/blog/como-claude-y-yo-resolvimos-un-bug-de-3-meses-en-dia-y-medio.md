@@ -20,18 +20,47 @@ Estos temas los solucionamos con ayuda de un agente, lo interesante fue el como 
 
 Así es como funciona el sistema (Backend):
 
+<div class="diagram-desktop">
+
+```mermaid
+flowchart LR
+    subgraph SMB
+        Cargar
+    end
+    subgraph servicio
+        validar --> procesar
+    end
+    subgraph SFTP
+        enviar --> recibir
+    end
+    Cargar --> validar
+    procesar --> enviar
+    recibir --> Webhook
+    Webhook -->|avisa al servicio para procesar| procesar
 ```
-   SMB                    servicio                   SFTP
-┌────────┐   ┌─────────────────────────────┐   ┌────────────────┐
-│ Cargar │──▶│   validar   │   procesar     │──▶│ enviar │ recibir│
-└────────┘   └─────────────────────────────┘   └────────────────┘
-                              ▲                          │
-                              │                          ▼
-                              │                    ┌────────────┐
-                              └────────────────────│  Webhook   │
-                                                    └────────────┘
-                (el Webhook observa "recibir" y avisa al servicio para procesar)
+
+</div>
+
+<div class="diagram-mobile">
+
+```mermaid
+flowchart TB
+    subgraph SMB
+        Cargar
+    end
+    subgraph servicio
+        validar --> procesar
+    end
+    subgraph SFTP
+        enviar --> recibir
+    end
+    Cargar --> validar
+    procesar --> enviar
+    recibir --> Webhook
+    Webhook -->|avisa al servicio para procesar| procesar
 ```
+
+</div>
 
 En este sistema tan simple llevabamos meses con esta falla. Así que se me ocurrió invitar a Claudia a la fiesta de desarrollo y pedirle apoyo.
 
