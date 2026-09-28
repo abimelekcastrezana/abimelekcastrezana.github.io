@@ -1,7 +1,7 @@
 ---
 title: "Conjuntos difusos: Hedy como sistema de lógica difusa"
 date: 2026-09-26
-tags: ["Tarea", "R2_U1"]
+tags: ["Tarea", "R2_U1", "Modulo6"]
 description: "Cómo modelé la decisión de publicar de Hedy, mi agente de blog, como un sistema de lógica difusa con variables lingüísticas y funciones de membresía."
 draft: false
 ---
