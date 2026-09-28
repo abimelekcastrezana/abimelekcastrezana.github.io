@@ -137,19 +137,36 @@ La decisión de publicar no es determinista, admite ciertos grados. Centrándono
 
 Las etapas de un sistema de inferencia difuso son las siguientes (adaptado de *Lógica difusa y sistemas de control*, s.f., p. 15):
 
-| Etapa | Comentario |
-|-------|------------|
-| Dato de entrada | Dato proveniente del sensor que mide la variable del proceso; puede presentar ruido y desviaciones con respecto al valor real. |
-| Fuzzificación | Se convierte un número en valores correspondientes a las funciones de membresía a las que pertenece. |
-| Evaluación de reglas | Las reglas definen la estrategia de control o conocimiento; se realizan operaciones entre los conjuntos. |
-| Inferencia | Se determina el conjunto de salida de cada regla. |
-| Agregado | Se obtiene la función de membresía de la variable de salida a partir de alguna operación entre todos los conjuntos de salida de la etapa de inferencia. |
-| Defuzzificación | Definida la función de membresía de la salida, se determina cuál dato es el más representativo del conjunto de salida total. |
-| Dato de salida | Es la variable que tomará el actuador para modificar el estado del proceso. |
+```mermaid
+flowchart TD
+    A(["<b>Dato de entrada</b><br/>Dato proveniente del sensor que mide la variable<br/>del proceso; puede presentar ruido y desviaciones"])
+    B["<b>Fuzzificación</b><br/>Se convierte un número en valores de las<br/>funciones de membresía a las que pertenece"]
+    C["<b>Evaluación de reglas</b><br/>Las reglas definen la estrategia de control;<br/>se realizan operaciones entre los conjuntos"]
+    D["<b>Inferencia</b><br/>Se determina el conjunto de salida de cada regla"]
+    E["<b>Agregado</b><br/>Se obtiene la función de membresía de la salida<br/>a partir de todos los conjuntos de salida"]
+    F["<b>Defuzzificación</b><br/>Se determina el dato más representativo<br/>del conjunto de salida total"]
+    G(["<b>Dato de salida</b><br/>Variable que tomará el actuador para<br/>modificar el estado del proceso"])
+    A --> B --> C --> D --> E --> F --> G
+```
 
 Basado en las etapas anteriormente presentadas, se elaboró el diagrama para el caso de Hedy:
 
-![Diagrama del sistema de lógica difusa de Hedy](/blog/hedy_diagrama.jpg)
+```mermaid
+flowchart TD
+    A(["<b>1. Dato de entrada</b><br/>Tiempo desde la última publicación (0-96 h)<br/>e interés del tema (0-10)"])
+    B["<b>2. Fuzzificación</b><br/>Convierte los valores en grados de pertenencia (0 a 1):<br/>reciente / moderado / atrasado y bajo / medio / alto"]
+    C["<b>3. Evaluación de reglas</b><br/>Aplica operadores Y / O entre los antecedentes.<br/>Ej.: SI tiempo es moderado Y interés es alto..."]
+    D["<b>4. Inferencia</b><br/>Determina el conjunto de salida<br/>de cada regla activada"]
+    E["<b>5. Agregado</b><br/>Combina las salidas de todas las reglas activas<br/>en una sola función de membresía de salida"]
+    F["<b>6. Defuzzificación</b><br/>Obtiene el índice de prioridad (0 a 100)"]
+    G(["<b>7. Dato de salida</b><br/>Prioridad de publicar hoy: baja / media / alta"])
+    H{"<b>Decisión final</b><br/>¿Prioridad ≥ 50?"}
+    I(["Hedy escribe hoy"])
+    J(["Hedy espera"])
+    A --> B --> C --> D --> E --> F --> G --> H
+    H -->|Sí| I
+    H -->|No| J
+```
 
 [Ver diagrama del sistema en Canva](https://canva.link/5f3a0iwrqcts2c3)
 
