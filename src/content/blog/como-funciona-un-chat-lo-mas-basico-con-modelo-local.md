@@ -1,56 +1,45 @@
 ---
 title: "Cómo funciona un chat: lo más básico con un modelo local"
 date: 2026-10-27
-tags: ["agentes ia", "python", "ollama"]
-description: "Mi primer paso para aprender a hacer agentes: llamar a un modelo local con Python y la librería de ollama, y entender hasta dónde llega una sola llamada."
+tags: ["agentes ia", "python", "desarrollo"]
+description: "Mi primer paso para aprender a hacer agentes: llamar a un modelo local con Python y la librería de ollama, y observar hasta dónde llega el solo llamarle."
 draft: false
 ---
 
-## Introducción
+## Agente básico
 
-Quiero aprender a hacer agentes de IA, y la forma más honesta de empezar es por lo más básico: hablarle a un modelo desde código. Hoy, con ayuda de Claude y la librería de `ollama`, armé un bot de chat en consola. Estuvo sencillo, y justamente por eso vale la pena entender qué hace cada línea.
+Acabo de hacer, con ayuda de Claude y la librería de ollama, un bot de chat en consola. Estuvo sencillo, usamos la librería de ollama.
 
-Estas son mis notas de ese día:
+Mi endpoint para hablarle al modelo y el nombre del modelo van en un archivo `.env`. Aquí pongo valores de ejemplo, como en un `.env.example`; cada quien pone los suyos:
 
-![Primera página de mis notas: entorno virtual, endpoint del modelo y el código](/blog/como-funciona-un-chat-lo-mas-basico/como_funciona_un_chat_ia_pag1.jpeg)
+```text
+OLLAMA_HOST=http://localhost:11434
+OLLAMA_MODEL=llama3.2
+```
 
-![Segunda página de mis notas: la línea del print y la conclusión](/blog/como-funciona-un-chat-lo-mas-basico/como_funciona_un_chat_ia_pag2.jpeg)
-
-## Preparar el entorno
-
-Primero hay que crear un entorno virtual dentro de la carpeta del proyecto y activarlo:
+Hay que recordar que primero hay que hacer el entorno. Dentro de la carpeta del proyecto se ejecuta:
 
 ```bash
 python3 -m venv venv
+```
+
+y para entrar:
+
+```bash
 source venv/bin/activate
 ```
 
-El `venv` es solo el lugar donde viven las librerías instaladas. Los archivos de Python van en la raíz del proyecto, al lado del `venv`, no dentro de él. Con el entorno activo instalo lo necesario:
+Con el entorno activo instalo las librerías:
 
 ```bash
 pip install ollama python-dotenv
 ```
 
-La estructura queda así:
-
-```text
-basic-agent/
-├── venv/
-├── .env
-├── config.py
-└── basic_agent.py
-```
+Los archivos de Python van en la raíz del proyecto, al lado del `venv`, no dentro de él. El `venv` es solo donde viven las librerías.
 
 ## La configuración
 
-Mi modelo corre en un servidor propio con Ollama, así que necesito dos datos: la dirección del endpoint y el nombre del modelo. Esos datos van en un archivo `.env` en la raíz del proyecto, que nunca se sube a git:
-
-```text
-OLLAMA_HOST=http://mi-servidor:11434
-OLLAMA_MODEL=qwen3.5:9b
-```
-
-Los valores de arriba son un ejemplo; cada quien pone su endpoint y su modelo. Luego, `config.py` los lee y los deja listos para importar desde cualquier otro archivo:
+En `config.py` leo las variables del `.env` para poder importarlas desde otro archivo:
 
 ```python
 import os
@@ -62,9 +51,13 @@ ollama_host = os.getenv("OLLAMA_HOST")
 ollama_model = os.getenv("OLLAMA_MODEL")
 ```
 
-En Python no existe un `export`: todo lo que se define a nivel de módulo ya se puede importar desde otro archivo. Y hay que cuidar las mayúsculas, porque `ollama_host` y `OLLAMA_HOST` son nombres distintos. El nombre entre comillas es el de la variable en el `.env`; el nombre sin comillas es el de la variable de Python, y ese lo elijo yo.
+## El código
 
-## El código del bot
+Primero importamos `ollama`, que es la librería que se va a utilizar, luego importamos la configuración.
+
+`client` es para instanciar el cliente tal cual con `ollama.Client`, recibe la URL de tu API.
+
+`response` es para instanciar `client.chat`, donde `model` es tu modelo y `messages` es el rol y lo que le estamos enviando en el contenido. Esto lo imprimimos, para después hablarle por consola y ya está.
 
 ```python
 import ollama
@@ -79,21 +72,16 @@ response = client.chat(
 print(response["message"]["content"])
 ```
 
-Paso a paso:
+Se corre con `python basic_agent.py` desde la raíz del proyecto.
 
-1. Importo `ollama`, que es la librería que voy a usar, y luego mi configuración.
-2. `client` instancia el cliente con `ollama.Client`; recibe la URL de mi API.
-3. `response` es la llamada a `client.chat`. Ahí `model` es mi modelo y `messages` es una lista con el rol (`user`) y el contenido de lo que le estoy enviando.
-4. Imprimo la respuesta. Corro el archivo con `python basic_agent.py` y ya le hablé al modelo por consola.
+## Dos errores en el camino
 
-## Dos errores que me encontré
+**Mayúsculas.** Probé la configuración con `config.OLLAMA_HOST` y me salió `AttributeError`, porque en `config.py` las variables estaban en minúsculas. Python distingue entre ambas, así que hay que usar el nombre exacto con el que se definió.
 
-**Mayúsculas.** Al probar la configuración con `config.OLLAMA_HOST` me salió `AttributeError`, porque en `config.py` las variables estaban en minúsculas. Python distingue ambas, así que hay que usar el nombre exacto con el que se definió.
+**La coma en lugar de dos corchetes.** Escribí `response["message", "content"]` y me dio `KeyError: ('message', 'content')`. Con la coma Python arma una tupla y la usa como una sola llave, que no existe. Para entrar a un diccionario dentro de otro se encadenan los corchetes: `response["message"]["content"]`.
 
-**La coma en lugar de dos corchetes.** Escribí `response["message", "content"]` y me dio `KeyError: ('message', 'content')`. Con la coma Python arma una tupla y la usa como una sola llave, que no existe. Para entrar a un diccionario dentro de otro se encadenan los corchetes: `response["message"]["content"]`. La librería también permite `response.message.content`.
+## Hasta dónde llega
 
-## Hasta dónde llega esto
+Este tipo de interacciones, hasta ahí llega la interacción: no guarda nada, solo una efímera contestación y ya. Esto solo es la práctica para poder observar hasta dónde llega el solo llamarle.
 
-Este tipo de interacción hasta ahí llega: no guarda nada. Es una contestación efímera y ya. Cada llamada empieza de cero y el modelo no recuerda lo que se dijo antes. Esto solo es la práctica para observar hasta dónde llega el simple hecho de llamarle.
-
-Para que se comporte como un agente hay que integrar **memoria** y **tool calling**. La memoria es guardar el historial de mensajes y reenviarlo en cada llamada; el tool calling es darle al modelo funciones que pueda pedir que se ejecuten. Por ahora todo bien hasta aquí, y ese es el siguiente paso.
+Para que se comporte como un agente hay que integrar memoria y tool calling. Por ahora todo bien hasta aquí.
